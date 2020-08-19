@@ -1,0 +1,15 @@
+<launch>
+
+  <!-- start gazebo -->
+  <include file="$(find pr2_doors)/launch/empty_world.launch"/>
+
+  <!-- load pr2 
+  <include file="$(find pr2_gazebo)/pr2.launch" />
+-->
+  <!-- load door -->
+  <param name="door_description" command="$(find xacro)/xacro.py '$(find pr2_doors)/urdf/door.urdf'" />
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model doorbot -param door_description" />
+  <!-- load door and handle controllers -->
+  <include file="$(find pr2_doors)/launch/door_position_controllers.launch" />
+
+</launch>

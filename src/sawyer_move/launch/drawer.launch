@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find sawyer_gazebo)/launch/sawyer_world.launch">
+        <arg name="world_file" default="$(find sawyer_gazebo)/worlds/sawyer.world"/>
+    </include>
+    <param name="door_description" command="$(find xacro)/xacro.py '$(find pr2_doors)/urdf/door.urdf'" />
+    <node name="urdf_spawner_door" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model doorbot -param door_description" />
+
+    <include file="$(find sawyer_simulation_moveit)/launch/demo.launch" />
+
+    <node pkg="intera_interface" type="joint_trajectory_action_server.py" name="joint_trajectory_action_server" />
+
+    <node pkg="sawyer_move" type="gripper.py" name="gripper_controller" />
+
+</launch>

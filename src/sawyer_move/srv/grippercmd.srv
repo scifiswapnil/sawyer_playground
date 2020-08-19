@@ -1,0 +1,3 @@
+std_msgs/Bool grip
+---
+std_msgs/Bool result
